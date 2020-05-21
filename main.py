@@ -33,6 +33,7 @@ def main(args):
     print(args)
     cudnn.benchmark = True
     torch.manual_seed(args.seed)
+    os.environ['CUDA_VISIBLE_DEVICES'] = str(args.visible_gpu)
 
     solver = Solver(args)
 
@@ -141,6 +142,8 @@ if __name__ == '__main__':
                         help='Number of workers used in DataLoader')
     parser.add_argument('--seed', type=int, default=777,
                         help='Seed for random number generator')
+    parser.add_argument('--visible_gpu', type=int, default=4,
+                        help='Which gpu to use')
 
     # directory for training
     parser.add_argument('--train_img_dir', type=str, default='data/celeba_hq/train',
